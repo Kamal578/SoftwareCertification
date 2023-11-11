@@ -13,20 +13,23 @@
 // declaration du mock
 void recupLimitAge(int * ageLimit)
 {   // dépilage de la valeur
-    * ageLimit = (int)mock();
+    * ageLimit = 20;
 
 }
-/* A test case that does nothing and succeeds. */
-static void null_test_success(void **state) {
-    (void) state;
-}
 
+static void test_price(void **state) {
+    int age_limit;
+    recupLimitAge(&age_limit);
+
+    assert_int_equal(computePrice(-1, true, true), -1);
+    assert_double_equal(computePrice(age_limit, true, true), 10.0, 0.01);
+    assert_double_equal(computePrice(age_limit, true, false), 50.0, 0.01);
+    assert_double_equal(computePrice(age_limit+1, true, true), 0.0, 0.01);
+}
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-        // ajout sans setUP
-        cmocka_unit_test(null_test_success)
-
+        cmocka_unit_test(test_price)
     };
  //   cmocka_set_message_output(CM_OUTPUT_XML);
     return cmocka_run_group_tests_name("toto",tests, NULL, NULL);
