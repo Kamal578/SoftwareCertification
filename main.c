@@ -21,9 +21,16 @@ static void test_price(void **state) {
     int age_limit;
     recupLimitAge(&age_limit);
 
+    // Invalid partition
     assert_int_equal(computePrice(-1, true, true), -1);
+
+    // Valid partitions
+    assert_double_equal(computePrice(age_limit, false, false), 10.0, 0.01);
+    assert_double_equal(computePrice(age_limit, false, true), 10.0, 0.01);
     assert_double_equal(computePrice(age_limit, true, true), 10.0, 0.01);
+
     assert_double_equal(computePrice(age_limit, true, false), 50.0, 0.01);
+
     assert_double_equal(computePrice(age_limit+1, true, true), 0.0, 0.01);
 }
 
