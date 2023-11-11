@@ -72,9 +72,9 @@ static void test_limits(void **state) {
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-        cmocka_unit_test(test_recupLimitAge_called),
         cmocka_unit_test(test_price),
-        cmocka_unit_test(test_limits)
+        cmocka_unit_test(test_limits),
+        cmocka_unit_test(test_recupLimitAge_called),
     };
  //   cmocka_set_message_output(CM_OUTPUT_XML);
     return cmocka_run_group_tests_name("toto",tests, NULL, NULL);
