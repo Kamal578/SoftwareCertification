@@ -10,11 +10,20 @@
 #define false 0
 
 
-// declaration du mock
-void recupLimitAge(int * ageLimit)
-{   // dépilage de la valeur
-    * ageLimit = 20;
+// Global variable to track whether recupLimitAge has been called
+static int recupLimitAge_called = 0;
 
+// Declaration of the mock
+void recupLimitAge(int *ageLimit)
+{
+    // Depilage de la valeur
+    *ageLimit = 20;
+    recupLimitAge_called = 1;
+}
+
+// Test if recupLimitAge has been called
+static void test_recupLimitAge_called(void **state) {
+    assert_int_equal(recupLimitAge_called, 1);
 }
 
 static void test_price(void **state) {
@@ -63,6 +72,7 @@ static void test_limits(void **state) {
 
 int main(void) {
     const struct CMUnitTest tests[] = {
+        cmocka_unit_test(test_recupLimitAge_called),
         cmocka_unit_test(test_price),
         cmocka_unit_test(test_limits)
     };
