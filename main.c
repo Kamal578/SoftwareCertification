@@ -14,8 +14,7 @@
 static int recupLimitAge_called = 0;
 
 // Declaration of the mock
-void recupLimitAge(int *ageLimit)
-{
+void recupLimitAge(int *ageLimit){
     // Depilage de la valeur
     *ageLimit = 20;
     recupLimitAge_called = 1;
