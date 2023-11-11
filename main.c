@@ -34,9 +34,37 @@ static void test_price(void **state) {
     assert_double_equal(computePrice(age_limit+1, true, true), 0.0, 0.01);
 }
 
+static void test_limits(void **state) {
+    int age_limit;
+    recupLimitAge(&age_limit);
+
+    // check ages -1, 0, 1, 19, 20, 21
+    assert_double_equal(computePrice(-1, false, false), -1.0, 0.01);
+
+    assert_double_equal(computePrice(0, false, false), 10.0, 0.01);
+    assert_double_equal(computePrice(0, false, true), 10.0, 0.01);
+    assert_double_equal(computePrice(0, true, false), 50.0, 0.01);
+    assert_double_equal(computePrice(0, true, true), 10.0, 0.01);
+
+    assert_double_equal(computePrice(1, false, false), 10.0, 0.01);
+    assert_double_equal(computePrice(1, false, true), 10.0, 0.01);
+    assert_double_equal(computePrice(1, true, false), 50.0, 0.01);
+    assert_double_equal(computePrice(1, true, true), 10.0, 0.01);
+
+    assert_double_equal(computePrice(19, false, false), 10.0, 0.01);
+    assert_double_equal(computePrice(19, false, true), 10.0, 0.01);
+    assert_double_equal(computePrice(19, true, false), 50.0, 0.01);
+    assert_double_equal(computePrice(19, true, true), 10.0, 0.01);
+
+    assert_double_equal(computePrice(20, false, false), 10.0, 0.01);
+
+    assert_double_equal(computePrice(21, false, false), 0.0, 0.01);
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
-        cmocka_unit_test(test_price)
+        cmocka_unit_test(test_price),
+        cmocka_unit_test(test_limits)
     };
  //   cmocka_set_message_output(CM_OUTPUT_XML);
     return cmocka_run_group_tests_name("toto",tests, NULL, NULL);
