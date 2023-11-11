@@ -1,0 +1,7 @@
+# .docx files
+*.docx
+
+#vscode folder
+
+.vscode
+.scannerwork
